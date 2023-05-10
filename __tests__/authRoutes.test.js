@@ -6,7 +6,8 @@ const db = require('../db/connection');
 const app = require('../app');
 const testData = require('../db/data/test-data/index');
 const { seed } = require('../db/seeds/seed');
-const { clearTables } = require('../db/utils');
+
+
 
 describe('Auth Endpoints', () => {
   beforeEach(async () => {
@@ -17,8 +18,9 @@ describe('Auth Endpoints', () => {
     db.end();
   });
 
+// test the /users/getUserByEmail endpoint
   it('should log in a user with valid credentials', async () => {
-    const res = await request(app).post('/login').send({
+    const res = await request(app).post('/api/user/login').send({
       email: 'john_doe@example.com',
       password: 'password123',
     });
@@ -28,7 +30,7 @@ describe('Auth Endpoints', () => {
   });
 
   it('should not log in a user with invalid credentials', async () => {
-    const res = await request(app).post('/login').send({
+    const res = await request(app).post('/api/user/login').send({
       email: 'john_doe@example.com',
       password: 'wrongpassword',
     });
@@ -37,7 +39,7 @@ describe('Auth Endpoints', () => {
   });
 
   it('should not log in a non-existent user', async () => {
-    const res = await request(app).post('/login').send({
+    const res = await request(app).post('api/user/login').send({
       email: 'nonexistent@example.com',
       password: 'password123',
     });
