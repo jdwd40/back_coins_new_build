@@ -39,7 +39,7 @@ describe('Auth Endpoints', () => {
   });
 
   it('should not log in a non-existent user', async () => {
-    const res = await request(app).post('api/user/login').send({
+    const res = await request(app).post('/api/user/login').send({
       email: 'nonexistent@example.com',
       password: 'password123',
     });
