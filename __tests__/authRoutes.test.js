@@ -14,9 +14,10 @@ describe('Auth Endpoints', () => {
     await seed(testData);
   });
 
-  afterEach(async () => {
+  afterAll(async () => {
     db.end();
   });
+  
 
 // test the /users/getUserByEmail endpoint
   it('should log in a user with valid credentials', async () => {
