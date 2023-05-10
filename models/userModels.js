@@ -1,4 +1,5 @@
 const db = require('../db/connection');
+const bcrypt = require('bcrypt');
 
 exports.selectUserByEmail = async (email) => {
   try {
@@ -16,3 +17,34 @@ exports.selectUserByEmail = async (email) => {
     throw error;
   }
 };
+
+exports.checkIfEmailExists = async (email) => {
+  try {
+    const { rows } = await db.query(
+      `SELECT * FROM users WHERE email = $1;`,
+      [email]
+    );
+    if (!rows.length) {
+      return null; // No user with this email exists
+    }
+    return rows[0]; // Return the user that was found
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+
+exports.createUser = async (email, password, name) => {
+  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    const { rows } = await db.query(
+      `INSERT INTO users (email, password, username) VALUES ($1, $2, $3) RETURNING *;`,
+      [email, hashedPassword, name]
+    );
+    return rows[0];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

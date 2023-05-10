@@ -1,7 +1,7 @@
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { selectUserByEmail } = require('../models/userModels');
+const { selectUserByEmail, createUser, checkIfEmailExists } = require('../models/userModels');
 const secret = process.env.JWT_SECRET || 'default_secret';
 
 exports.loginUser = async (req, res) => {
@@ -38,3 +38,32 @@ exports.loginUser = async (req, res) => {
       .json({ message: 'An error occurred while fetching the user.' });
   }
 };
+
+exports.registerUser = async (req, res) => {
+  const { email, password, name } = req.body;
+  // check if there are any missing details
+  if (!email || !password || !name) {
+    return res.status(400).json({ message: 'Required details are missing.' });
+  }
+  try {
+    const user = await checkIfEmailExists(email);
+    if (user) {
+      // A user with the given email already exists
+      return res.status(400).json({ message: 'Email already exists.' });
+    }
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+    // Create a new user
+    const newUser = await createUser(email, hashedPassword, name);
+    // Generate a token
+    const token = jwt.sign({ id: newUser.user_id }, secret, {
+      expiresIn: '24h',
+    });
+    res.status(201).json({ user: newUser, token });
+  }
+  catch (error) {
+    console.error('register catch block: ', error);
+    res.status(500).json({ message: 'An error occurred while registering.' });
+  } 
+};
+  

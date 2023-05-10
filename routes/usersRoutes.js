@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { loginUser } = require('../controllers/userControllers');
+const { loginUser, registerUser } = require('../controllers/userControllers');
 const { withErrorHandling } = require('../errors');
 
-// example usage in a route
+// login route
 router.post('/login', withErrorHandling(loginUser));
+// register route
+router.post('/register', withErrorHandling(registerUser));
 
 module.exports = router;

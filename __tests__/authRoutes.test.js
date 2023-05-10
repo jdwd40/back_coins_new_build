@@ -7,8 +7,6 @@ const app = require('../app');
 const testData = require('../db/data/test-data/index');
 const { seed } = require('../db/seeds/seed');
 
-
-
 describe('Auth Endpoints', () => {
   beforeEach(async () => {
     await seed(testData);
@@ -17,9 +15,8 @@ describe('Auth Endpoints', () => {
   afterAll(async () => {
     db.end();
   });
-  
 
-// test the /users/getUserByEmail endpoint
+  // test the /users/getUserByEmail endpoint
   it('should log in a user with valid credentials', async () => {
     const res = await request(app).post('/api/user/login').send({
       email: 'john_doe@example.com',
@@ -47,4 +44,38 @@ describe('Auth Endpoints', () => {
     expect(res.statusCode).toEqual(400);
     expect(res.body).toHaveProperty('message', 'Invalid email.');
   });
+
+  // test the /users/register endpoint
+  it('should register a new user', async () => {
+    const res = await request(app).post('/api/user/register').send({
+      email: 'new_user@example.com',
+      password: 'password123',
+      name: 'New User',
+    });
+    expect(res.statusCode).toEqual(201);
+    expect(res.body).toHaveProperty('user');
+    expect(res.body.user.email).toEqual('new_user@example.com');
+  });
+
+  it('should not register a user with an existing email', async () => {
+    const res = await request(app).post('/api/user/register').send({
+      email: 'john_doe@example.com',
+      password: 'password123',
+      name: 'Existing User',
+    });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty('message', 'Email already exists.');
+  });
+
+  it('should not register a user with missing details', async () => {
+    const res = await request(app).post('/api/user/register').send({
+      email: 'missing_data@example.com',
+      // password is missing
+      name: 'Missing Data',
+    });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty('message', 'Required details are missing.');
+  });
+
+  // test the /users/register endpoint
 });
