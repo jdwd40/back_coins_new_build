@@ -1,0 +1,54 @@
+sending incremental file list
+deleting back_coins_new_build/testFile.txt
+deleting back_coins_new_build/test3.txt
+deleting back_coins_new_build/logout.txt
+back_coins_new_build/
+back_coins_new_build/back_up.sh
+back_coins_new_build/log.txt
+
+sent 180,188 bytes  received 1,203 bytes  362,782.00 bytes/sec
+total size is 37,640,587  speedup is 207.51
+sending incremental file list
+back_coins_new_build/
+back_coins_new_build/log.txt
+back_coins_new_build/nowthen.txt
+back_coins_new_build/nowthen2.txt
+back_coins_new_build/smeg.txt
+
+sent 180,406 bytes  received 1,135 bytes  363,082.00 bytes/sec
+total size is 37,640,980  speedup is 207.34
+sending incremental file list
+deleting back_coins_new_build/smeg.txt
+deleting back_coins_new_build/nowthen2.txt
+deleting back_coins_new_build/nowthen.txt
+back_coins_new_build/
+back_coins_new_build/log.txt
+
+sent 180,557 bytes  received 1,184 bytes  363,482.00 bytes/sec
+total size is 37,641,218  speedup is 207.11
+sending incremental file list
+back_coins_new_build/
+back_coins_new_build/.readme.md.swp
+back_coins_new_build/back_up.sh
+back_coins_new_build/log.txt
+
+sent 182,140 bytes  received 1,116 bytes  366,512.00 bytes/sec
+total size is 37,642,555  speedup is 205.41
+sending incremental file list
+deleting back_coins_new_build/.readme.md.swp
+back_coins_new_build/
+back_coins_new_build/log.txt
+back_coins_new_build/readme.md
+
+sent 181,217 bytes  received 1,136 bytes  364,706.00 bytes/sec
+total size is 37,641,884  speedup is 206.42
+sending incremental file list
+back_coins_new_build/log.txt
+
+sent 181,273 bytes  received 1,075 bytes  364,696.00 bytes/sec
+total size is 37,642,149  speedup is 206.43
+sending incremental file list
+back_coins_new_build/log.txt
+
+sent 181,440 bytes  received 1,075 bytes  365,030.00 bytes/sec
+total size is 37,642,316  speedup is 206.24
