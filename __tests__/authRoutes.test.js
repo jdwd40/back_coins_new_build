@@ -77,5 +77,11 @@ describe('Auth Endpoints', () => {
     expect(res.body).toHaveProperty('message', 'Required details are missing.');
   });
 
-  // test the /users/register endpoint
+  // test the get /api/user/all
+  it('should return all users', async () => {
+    const res = await request(app).get('/api/user/all');
+    expect(res.statusCode).toEqual(200);
+    console.log('res.body', res.body);
+    expect(res.body).toHaveLength(3);
+  });
 });

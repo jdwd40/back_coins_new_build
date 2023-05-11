@@ -34,7 +34,6 @@ exports.checkIfEmailExists = async (email) => {
   }
 };
 
-
 exports.createUser = async (email, password, name) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
@@ -43,6 +42,16 @@ exports.createUser = async (email, password, name) => {
       [email, hashedPassword, name]
     );
     return rows[0];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+exports.selectAllUsers = async () => {
+  try {
+    const { rows } = await db.query(`SELECT * FROM users;`);
+    return rows;
   } catch (error) {
     console.error(error);
     throw error;

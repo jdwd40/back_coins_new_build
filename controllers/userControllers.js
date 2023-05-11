@@ -1,7 +1,12 @@
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { selectUserByEmail, createUser, checkIfEmailExists } = require('../models/userModels');
+const {
+  selectUserByEmail,
+  createUser,
+  checkIfEmailExists,
+  selectAllUsers
+} = require('../models/userModels');
 const secret = process.env.JWT_SECRET || 'default_secret';
 
 exports.loginUser = async (req, res) => {
@@ -60,10 +65,18 @@ exports.registerUser = async (req, res) => {
       expiresIn: '24h',
     });
     res.status(201).json({ user: newUser, token });
-  }
-  catch (error) {
+  } catch (error) {
     console.error('register catch block: ', error);
     res.status(500).json({ message: 'An error occurred while registering.' });
-  } 
+  }
 };
-  
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await selectAllUsers();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('getAllUsers catch block: ', error);
+    res.status(500).json({ message: 'An error occurred while fetching users.' });
+  }
+}
