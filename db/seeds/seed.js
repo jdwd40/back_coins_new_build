@@ -53,7 +53,7 @@ const seed = (data) => {
       return db.query(`
         CREATE TABLE transactions (
           transaction_id SERIAL PRIMARY KEY,
-          user_id INTEGER NOT NULL REFERENCES users(user_id),
+          user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
           coin_id INTEGER NOT NULL REFERENCES coins(coin_id),
           type VARCHAR(4) NOT NULL CHECK (type IN ('buy', 'sell')),
           amount NUMERIC(20, 8) NOT NULL,

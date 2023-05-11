@@ -5,7 +5,8 @@ const {
   selectUserByEmail,
   createUser,
   checkIfEmailExists,
-  selectAllUsers
+  selectAllUsers,
+  removeUser
 } = require('../models/userModels');
 const secret = process.env.JWT_SECRET || 'default_secret';
 
@@ -78,5 +79,16 @@ exports.getAllUsers = async (req, res) => {
   } catch (error) {
     console.error('getAllUsers catch block: ', error);
     res.status(500).json({ message: 'An error occurred while fetching users.' });
+  }
+}
+
+exports.deleteUser = async (req, res) => {
+  const { user_id } = req.params;
+  try {
+    const deletedUser = await removeUser(user_id);
+    res.status(200).json(deletedUser);
+  } catch (error) {
+    console.error('deleteUser catch block: ', error);
+    res.status(500).json({ message: 'An error occurred while deleting the user.' });
   }
 }

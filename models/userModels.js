@@ -57,3 +57,16 @@ exports.selectAllUsers = async () => {
     throw error;
   }
 }
+
+exports.removeUser = async (user_id) => {
+  try {
+    const { rows } = await db.query(
+      `DELETE FROM users WHERE user_id = $1 RETURNING *;`,
+      [user_id]
+    );
+    return rows[0];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

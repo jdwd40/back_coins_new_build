@@ -84,4 +84,11 @@ describe('Auth Endpoints', () => {
     console.log('res.body', res.body);
     expect(res.body).toHaveLength(3);
   });
+
+  // test the /api/user/delete/:id endpoint
+  it('should delete a user', async () => {
+    const res = await request(app).delete('/api/user/delete/1');
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty('message', 'User deleted successfully.');
+  });
 });
