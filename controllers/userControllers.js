@@ -14,6 +14,7 @@ exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await selectUserByEmail(email);
+    console.log('user', user);
 
     if (!user) {
       // No user with the given email exists
@@ -23,6 +24,8 @@ exports.loginUser = async (req, res) => {
     if (user) {
       // check if the password is correct
       const validPassword = await bcrypt.compare(password, user.password);
+      console.log('password', password);
+      console.log('user.password', user.password);
       if (!validPassword) {
         res.status(400).json({ message: 'Invalid password.' });
       } else {
@@ -68,6 +71,9 @@ exports.registerUser = async (req, res) => {
     res.status(201).json({ user: newUser, token });
   } catch (error) {
     console.error('register catch block: ', error);
+    if (error.message === 'duplicate key value violates unique constraint "users_username_key"')
+      res.status(400).json({ message: "Username already exists." });
+
     res.status(500).json({ message: 'An error occurred while registering.' });
   }
 };

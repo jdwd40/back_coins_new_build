@@ -67,6 +67,17 @@ describe('Auth Endpoints', () => {
     expect(res.body).toHaveProperty('message', 'Email already exists.');
   });
 
+  // write test it should not register a user with an existing username
+  it('should not register a user with an existing username', async () => {
+    const res = await request(app).post('/api/user/register').send({
+      email: 'j@jd.com',
+      password: 'password123',
+      username: 'john_doe',
+    });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty('message', 'Username already exists.');
+  });
+  
   it('should not register a user with missing details', async () => {
     const res = await request(app).post('/api/user/register').send({
       email: 'missing_data@example.com',

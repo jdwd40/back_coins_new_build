@@ -34,8 +34,7 @@ exports.checkIfEmailExists = async (email) => {
   }
 };
 
-exports.createUser = async (email, password, name) => {
-  const hashedPassword = await bcrypt.hash(password, 10);
+exports.createUser = async (email, hashedPassword, name) => {
   try {
     const { rows } = await db.query(
       `INSERT INTO users (email, password, username) VALUES ($1, $2, $3) RETURNING *;`,
