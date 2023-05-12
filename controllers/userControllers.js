@@ -46,9 +46,9 @@ exports.loginUser = async (req, res) => {
 };
 
 exports.registerUser = async (req, res) => {
-  const { email, password, name } = req.body;
+  const { email, password, username } = req.body;
   // check if there are any missing details
-  if (!email || !password || !name) {
+  if (!email || !password || !username) {
     return res.status(400).json({ message: 'Required details are missing.' });
   }
   try {
@@ -60,7 +60,7 @@ exports.registerUser = async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
     // Create a new user
-    const newUser = await createUser(email, hashedPassword, name);
+    const newUser = await createUser(email, hashedPassword, username);
     // Generate a token
     const token = jwt.sign({ id: newUser.user_id }, secret, {
       expiresIn: '24h',
@@ -86,7 +86,7 @@ exports.deleteUser = async (req, res) => {
   const { user_id } = req.params;
   try {
     const deletedUser = await removeUser(user_id);
-    res.status(200).json(deletedUser);
+    res.status(200).json({"message": "User deleted successfully."});
   } catch (error) {
     console.error('deleteUser catch block: ', error);
     res.status(500).json({ message: 'An error occurred while deleting the user.' });

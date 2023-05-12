@@ -50,7 +50,7 @@ describe('Auth Endpoints', () => {
     const res = await request(app).post('/api/user/register').send({
       email: 'new_user@example.com',
       password: 'password123',
-      name: 'New User',
+      username: 'New User',
     });
     expect(res.statusCode).toEqual(201);
     expect(res.body).toHaveProperty('user');
@@ -61,7 +61,7 @@ describe('Auth Endpoints', () => {
     const res = await request(app).post('/api/user/register').send({
       email: 'john_doe@example.com',
       password: 'password123',
-      name: 'Existing User',
+      username: 'Existing User',
     });
     expect(res.statusCode).toEqual(400);
     expect(res.body).toHaveProperty('message', 'Email already exists.');
