@@ -17,7 +17,8 @@ describe('Auth Endpoints', () => {
   });
   // test api/currentevent
   it('should return the current event', async () => {
-    await check_game_event();
+    const eventCheck = await check_game_event();
+    //expect(eventCheck).toBe("Active event found");
     const res = await request(app).get('/api/currentevent');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('currentEvent');

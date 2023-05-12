@@ -10,7 +10,7 @@ exports.check_game_event = async () => {
   if (currentEvent.rows.length > 0 ) {
     // You might want to return, log, or do something else with the active event here
     console.log('Active event found: ', currentEvent);
-    return;
+    return "Active event found";
   }
 
   // Step 3: Handle the case where no event is active
@@ -34,7 +34,7 @@ exports.check_game_event = async () => {
   );
 
   // Log the new event
-  console.log('New event created: ');
+  return "New event created";
 };
 
 
