@@ -6,7 +6,8 @@ const {
   createUser,
   checkIfEmailExists,
   selectAllUsers,
-  removeUser
+  removeUser,
+  returnUserBalance
 } = require('../models/userModels');
 const secret = process.env.JWT_SECRET || 'default_secret';
 
@@ -92,5 +93,27 @@ exports.deleteUser = async (req, res) => {
   } catch (error) {
     console.error('deleteUser catch block: ', error);
     res.status(500).json({ message: 'An error occurred while deleting the user.' });
+  }
+}
+
+exports.getUserbyId = async (req, res) => {
+  const { user_id } = req.params;
+  try {
+    const user = await selectUserById(user_id);
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('getUserById catch block: ', error);
+    res.status(500).json({ message: 'An error occurred while fetching the user.' });
+  }
+}
+
+exports.getUserBalance = async (req, res) => {
+  const { user_id } = req.params;
+  try {
+    const balance = await returnUserBalance(user_id);
+    res.status(200).json(balance);
+  } catch (error) {
+    console.error('getUserBalance catch block: ', error);
+    res.status(500).json({ message: 'An error occurred while fetching the user balance.' });
   }
 }

@@ -39,4 +39,11 @@ exports.formatUserData = (userData) => {
       return [ce.coin_id, ce.type, ce.start_time, ce.end_time];
     });
   };
+
+  exports.formatCoinData = (coinData) => {
+    if (coinData === undefined) return [];
+    return coinData.map((c) => {
+      return [c.name, c.symbol, c.current_price];
+    });
+  }
   

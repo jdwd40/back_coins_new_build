@@ -6,6 +6,7 @@ const db = require('../db/connection');
 const app = require('../app');
 const testData = require('../db/data/test-data/index');
 const { seed } = require('../db/seeds/seed');
+const { updateUserBalance } = require('../models/userModels');
 
 describe('Auth Endpoints', () => {
   beforeEach(async () => {
@@ -77,7 +78,7 @@ describe('Auth Endpoints', () => {
     expect(res.statusCode).toEqual(400);
     expect(res.body).toHaveProperty('message', 'Username already exists.');
   });
-  
+
   it('should not register a user with missing details', async () => {
     const res = await request(app).post('/api/user/register').send({
       email: 'missing_data@example.com',
@@ -101,5 +102,19 @@ describe('Auth Endpoints', () => {
     const res = await request(app).delete('/api/user/delete/1');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('message', 'User deleted successfully.');
+  });
+
+  // test /balance route
+  it('should return the balance of a user', async () => {
+    const res = await request(app).get('/api/user/balance/1');
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual('10000.00');
+  });
+  // test updateUserBalance function
+  it('should update the balance of a user', async () => {
+    updateUserBalance(1, -10);
+    const res2 = await request(app).get('/api/user/balance/1');
+    expect(res2.statusCode).toEqual(200);
+    expect(res2.body).toEqual('9990.00');
   });
 });

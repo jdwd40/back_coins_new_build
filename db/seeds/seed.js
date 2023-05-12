@@ -7,10 +7,11 @@ const {
   formatCoinPriceHistoryData,
   formatEventsData,
   formatCoinEventsData,
+ formatCoinData
 } = require('../../utils/formatData');
 
 const seed = (data) => {
-  const { users, coins, transactions, coinPriceHistory, events, coinEvents } =
+  const { users, coins, transactions, coinPriceHistory, events, coinEvents, usercoins } =
     data;
 
   return db
@@ -90,6 +91,15 @@ const seed = (data) => {
         );`);
     })
     .then(() => {
+      return db.query(`
+        CREATE TABLE user_coins (
+          user_coin_id SERIAL PRIMARY KEY,
+          user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+          coin_id INTEGER NOT NULL REFERENCES coins(coin_id),
+          amount NUMERIC(20, 8) NOT NULL
+        );`);
+    })    
+    .then(() => {
       const formattedUsers = formatUserData(users);
       const sql = format(
         `INSERT INTO users (username, email, password, funds) 
@@ -139,7 +149,15 @@ const seed = (data) => {
         formattedCoinEvents
       );
       return db.query(sql);
-    });
+    })
+    .then(() => {
+      const formattedUserCoins = formatCoinData(userCoins);
+      const sql = format(
+        'INSERT INTO user_coins (user_id, coin_id, amount) VALUES %L RETURNING *;',
+        formattedUserCoins
+      );
+      return db.query(sql);
+    })
 };
 
 module.exports = { seed };
