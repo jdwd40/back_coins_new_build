@@ -7,12 +7,19 @@ const {
   formatCoinPriceHistoryData,
   formatEventsData,
   formatCoinEventsData,
- formatCoinData
+  formatCoinData,
 } = require('../../utils/formatData');
 
 const seed = (data) => {
-  const { users, coins, transactions, coinPriceHistory, events, coinEvents, usercoins } =
-    data;
+  const {
+    users,
+    coins,
+    transactions,
+    coinPriceHistory,
+    events,
+    coinEvents,
+    userCoins,
+  } = data;
 
   return db
     .query(`DROP TABLE IF EXISTS users CASCADE;`)
@@ -30,6 +37,9 @@ const seed = (data) => {
     })
     .then(() => {
       return db.query(`DROP TABLE IF EXISTS coin_events CASCADE;`);
+    })
+    .then(() => {
+      return db.query(`DROP TABLE IF EXISTS user_coins CASCADE;`);
     })
     .then(() => {
       return db.query(`
@@ -98,7 +108,7 @@ const seed = (data) => {
           coin_id INTEGER NOT NULL REFERENCES coins(coin_id),
           amount NUMERIC(20, 8) NOT NULL
         );`);
-    })    
+    })
     .then(() => {
       const formattedUsers = formatUserData(users);
       const sql = format(
@@ -153,11 +163,11 @@ const seed = (data) => {
     .then(() => {
       const formattedUserCoins = formatCoinData(userCoins);
       const sql = format(
-        'INSERT INTO user_coins (user_id, coin_id, amount) VALUES %L RETURNING *;',
+        'INSERT INTO user_coins (user_coin_id, user_id, coin_id, amount) VALUES %L RETURNING *;',
         formattedUserCoins
       );
       return db.query(sql);
-    })
+    });
 };
 
 module.exports = { seed };

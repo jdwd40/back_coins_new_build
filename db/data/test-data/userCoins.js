@@ -13,13 +13,13 @@ module.exports = [
     },
     {
       user_coin_id: 3,
-      user_id: 2,
+      user_id: 1,
       coin_id: 1,
       amount: 200.00,
     },
     {
       user_coin_id: 4,
-      user_id: 2,
+      user_id: 1,
       coin_id: 3,
       amount: 150.00,
     },

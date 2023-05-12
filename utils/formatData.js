@@ -43,7 +43,7 @@ exports.formatUserData = (userData) => {
   exports.formatCoinData = (coinData) => {
     if (coinData === undefined) return [];
     return coinData.map((c) => {
-      return [c.name, c.symbol, c.current_price];
+      return [c.user_coin_id, c.user_id, c.coin_id, c.amount];
     });
   }
   

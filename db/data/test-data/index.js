@@ -4,6 +4,7 @@ const transactions = require('./transactions');
 const coinPriceHistory = require('./coinPriceHistory');
 const events = require('./events');
 const coinEvents = require('./coinEvents');
+const userCoins = require('./userCoins');
 
 module.exports = {
   users,
@@ -12,4 +13,5 @@ module.exports = {
   coinPriceHistory,
   events,
   coinEvents,
+  userCoins
 };
