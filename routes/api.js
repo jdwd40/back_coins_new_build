@@ -3,6 +3,7 @@ const app = express();
 
 const usersRoutes = require('./usersRoutes');
 const coinRoutes = require('./coinRoutes');
+const eventsRoutes = require('./eventsRoutes');
 
 const { routeNotFound, methodNotAllowed } = require('../errors');
 const { handleSQLErrors, handleCustomErrors, handle500 } = require('../errors');
@@ -12,6 +13,8 @@ app.use(express.json());
 app.use('/user', usersRoutes);
 
 app.use('/coins', coinRoutes);
+
+app.use('/currentevent', eventsRoutes);
 
 // catch 404 and forward to error handler
 app.use(routeNotFound);

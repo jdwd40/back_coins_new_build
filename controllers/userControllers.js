@@ -14,8 +14,6 @@ exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await selectUserByEmail(email);
-    console.log('user', user);
-
     if (!user) {
       // No user with the given email exists
       return res.status(400).json({ message: 'Invalid email.' });
@@ -24,8 +22,6 @@ exports.loginUser = async (req, res) => {
     if (user) {
       // check if the password is correct
       const validPassword = await bcrypt.compare(password, user.password);
-      console.log('password', password);
-      console.log('user.password', user.password);
       if (!validPassword) {
         res.status(400).json({ message: 'Invalid password.' });
       } else {
@@ -39,7 +35,7 @@ exports.loginUser = async (req, res) => {
       res.status(400).json({ message: 'Invalid email.' });
     }
   } catch (error) {
-    console.error('login catch blog: ', error);
+    console.error('login catch block: ', error);
     if (error.message === 'Invalid email or password.')
       res.status(400).json({ message: 'Invalid email.' });
     res

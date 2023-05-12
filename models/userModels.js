@@ -1,5 +1,4 @@
 const db = require('../db/connection');
-const bcrypt = require('bcrypt');
 
 exports.selectUserByEmail = async (email) => {
   try {
