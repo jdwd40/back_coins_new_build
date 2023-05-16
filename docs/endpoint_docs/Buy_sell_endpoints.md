@@ -70,6 +70,34 @@ This status code indicates that an error occurred on the server while processing
 
 To use this endpoint, send a `POST` request to `/usercoins/buy` with the `user_id`, `coin_id`, and `amount` parameters in the request body. Make sure that the `user_id` and `coin_id` correspond to valid records in the database, and that the `amount` is a valid number.
 
-Remember, this endpoint should be used in a secure context, and user authentication should be implemented to ensure that only authenticated users can make purchases.
+---
 
-Please ensure to handle the responses appropriately in your client-side code, informing the user of successful purchases or errors as necessary.
+**Sell Coins Endpoint**
+
+**Endpoint:** `/usercoins/sell`
+
+**Method:** `POST`
+
+**Description:** This endpoint allows a user to sell a specified quantity of a specific coin. The user's balance is updated with the sale amount and the coin quantity is reduced by the sale amount. If the quantity of the coin reduces to zero, the coin is removed from the user's portfolio.
+
+**Request Body:**
+
+```json
+{
+  "user_id": "<integer>",
+  "coin_id": "<integer>",
+  "amount": "<float>"
+}
+```
+
+- `user_id`: The unique identifier for the user. This is a required field.
+- `coin_id`: The unique identifier for the coin. This is a required field.
+- `amount`: The quantity of the coin to be sold. This is a required field.
+
+**Responses:**
+
+- `200 OK`: The request was successful. The user's balance and coin quantity have been updated. The response body will include a success message.
+
+- `400 Bad Request`: The request was unsuccessful. Possible reasons could include an invalid `user_id` or `coin_id`, or if the user does not have sufficient quantity of the coin to sell. The response body will include an error message detailing the issue.
+
+---
