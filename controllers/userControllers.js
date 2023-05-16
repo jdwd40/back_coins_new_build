@@ -143,3 +143,16 @@ exports.updateUserBalance = async (req, res) => {
       .json({ message: 'An error occurred while updating the user balance.' });
   }
 };
+
+exports.getUserByEmail = async (req, res) => {
+  const { email } = req.params;
+  try {
+    const user = await selectUserByEmail(email);
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('getUserByEmail catch block: ', error);
+    res
+      .status(500)
+      .json({ message: 'An error occurred while fetching the user.' });
+  }
+}
