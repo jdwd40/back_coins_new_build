@@ -7,6 +7,8 @@ const apiRouter = require('./routes/api');
 const { adjustCoinPrices } = require('./utils/simPrices');
 
 const app = express();
+
+app.use(cors()); // This is where you add the CORS middleware
 app.use(express.static('public'));
 app.use(express.json());
 

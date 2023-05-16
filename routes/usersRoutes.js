@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { loginUser, registerUser, getAllUsers, deleteUser, getUserBalance } = require('../controllers/userControllers');
+const { loginUser, registerUser, getAllUsers, deleteUser, getUserBalance, getUserbyId } = require('../controllers/userControllers');
 const { withErrorHandling } = require('../errors');
 
 // login route
@@ -13,4 +13,7 @@ router.get('/all', withErrorHandling(getAllUsers));
 router.get('/balance/:user_id', withErrorHandling(getUserBalance));
 
 router.delete('/delete/:user_id', withErrorHandling(deleteUser));
+
+router.get('/getuser/:user_id', withErrorHandling(getUserbyId));
+
 module.exports = router;

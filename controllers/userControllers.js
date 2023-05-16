@@ -8,6 +8,7 @@ const {
   selectAllUsers,
   removeUser,
   returnUserBalance,
+  selectUserById
 } = require('../models/userModels');
 const secret = process.env.JWT_SECRET || 'default_secret';
 
