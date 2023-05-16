@@ -63,23 +63,35 @@ exports.buyCoin = async (req, res) => {
 };
 
 exports.sellCoin = async (req, res) => {
-  const { coinId, amount } = req.body;
-  const userId = req.user.id;
+  const { user_id, coin_id } = req.body;
+  let { amount } = req.body;
+  
+  // convert amount to float
+  amount = parseFloat(amount);
+  
+  // Get user and coin info from database
+  const user = await selectUserById(user_id);
+  const sell_coin = await selectCoinById(coin_id);
+  
+  // convert user.funds to currencey
+  user.funds = parseFloat(user.funds);
+  sell_coin.current_price = parseFloat(sell_coin.current_price);
 
-  // Get user and coin info
-  const user = await getUserById(userId);
-  const coin = await getCoinById(coinId);
-
-  // Check if user has enough coins
-  const userCoin = await getUserCoin(userId, coinId);
-  if (userCoin.amount < amount) {
-    return res.status(400).json({ message: 'Not enough coins.' });
+  // Get user's coins from database
+  const user_coins = await selectUserCoins(user_id);
+  const user_coin = user_coins.find(coin => coin.coin_id === sell_coin.coin_id);
+  
+  // Check if user has enough of the coin to sell
+  if (!user_coin || user_coin.amount < amount) {
+    return res.status(400).json({ message: 'Insufficient coins.' });
   }
 
-  // Update user balance and coin amount
-  await patchUserBalance(user_id, user.funds + coin.current_price * amount);
-  await UserCoin(user_id, coin_id, userCoin.amount - amount);
+  // Update the user's coin amount
+  await patchUserCoin(user_id, coin_id, -amount);  // Note the negative sign here, it decreases the holdings
 
-  // Respond with success
-  res.json({ message: 'Sale successful.' });
+  // Update user balance
+  await patchUserBalance(user_id, user.funds + sell_coin.current_price * amount);
+
+  // Respond with 200 status request and message if successful
+  res.status(200).json({ message: 'Sale successful.' });
 };

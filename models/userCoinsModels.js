@@ -34,10 +34,22 @@ exports.patchUserCoin = async (user_id, coin_id, amount) => {
       `UPDATE user_coins SET amount = amount + $1 WHERE user_id = $2 AND coin_id = $3 RETURNING *;`,
       [amount, user_id, coin_id]
     );
+    
+    // No rows affected, return null
     if (!rows.length) {
       return null;
     }
-    return rows[0];
+
+    const updatedCoin = rows[0];
+    // If the amount of the coin is now 0, delete the coin record from the user_coins table
+    if (updatedCoin.amount == 0) {
+      await db.query(
+        `DELETE FROM user_coins WHERE user_id = $1 AND coin_id = $2;`,
+        [user_id, coin_id]
+      );
+    }
+
+    return updatedCoin;
   } catch (error) {
     console.error(error);
     throw error;
