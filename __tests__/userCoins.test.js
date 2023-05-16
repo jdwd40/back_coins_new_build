@@ -27,4 +27,21 @@ describe('user Coins Endpoints', () => {
     const userCoins = res.body.userCoins;
     console.log('userCoins', userCoins);
   });
+
+  // test buy endpoint user can buy a coin and it will appear in their usercoins
+  it('should allow a user to buy a coin', async () => {
+    const res = await request(app)
+      .post('/api/usercoins/buy')
+      .send({ user_id: 3, coin_id: 3, amount: 29 });
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty('message');
+    expect(res.body.message).toBe('Purchase successful.');
+    const userCoins = await request(app).get('/api/usercoins/3');
+    console.log('userCoins', userCoins.body.userCoins);
+    //expect(userCoins.body.userCoins[0].amount).toBe('1.00000000');
+    // check user funds have been updated
+    const user = await request(app).get('/api/user/balance/3');
+    console.log('funds', user.body);    
+    expect(user.body.funds).toBe('9999.00000000');
+  });
 });

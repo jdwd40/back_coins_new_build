@@ -12,3 +12,51 @@ exports.selectUserCoins = async (user_id) => {
     throw error;
   }
 };
+
+exports.selectCoinById = async (coin_id) => {
+  try {
+    const { rows } = await db.query(`SELECT * FROM coins WHERE coin_id = $1;`, [
+      coin_id,
+    ]);
+    if (!rows.length) {
+      return null;
+    }
+    return rows[0];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+exports.patchUserCoin = async (user_id, coin_id, amount) => {
+  try {
+    const { rows } = await db.query(
+      `UPDATE user_coins SET amount = amount + $1 WHERE user_id = $2 AND coin_id = $3 RETURNING *;`,
+      [amount, user_id, coin_id]
+    );
+    if (!rows.length) {
+      return null;
+    }
+    return rows[0];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+
+exports.addUserCoin = async (user_id, coin_id, amount) => {
+  try {
+    const { rows } = await db.query(
+      `INSERT INTO user_coins (user_id, coin_id, amount) VALUES ($1, $2, $3) RETURNING *;`,
+      [user_id, coin_id, amount]
+    );
+    if (!rows.length) {
+      return null;
+    }
+    return rows[0];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

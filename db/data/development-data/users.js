@@ -18,7 +18,7 @@ module.exports = [
       username: 'mark_smith',
       email: 'mark_smith@example.com',
       password: 'password123',
-      funds: 15000.00
+      funds: 10.00
     }
   ];
   

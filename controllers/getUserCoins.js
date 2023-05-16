@@ -1,4 +1,4 @@
-const { selectUserCoins } = require('../models/selectUserCoins');
+const { selectUserCoins } = require('../models/userModels');
 
 exports.getUserCoins = async (req, res) => {
   const { user_id } = req.params;

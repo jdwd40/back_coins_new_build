@@ -7,7 +7,7 @@ const {
   checkIfEmailExists,
   selectAllUsers,
   removeUser,
-  returnUserBalance
+  returnUserBalance,
 } = require('../models/userModels');
 const secret = process.env.JWT_SECRET || 'default_secret';
 
@@ -68,8 +68,11 @@ exports.registerUser = async (req, res) => {
     res.status(201).json({ user: newUser, token });
   } catch (error) {
     console.error('register catch block: ', error);
-    if (error.message === 'duplicate key value violates unique constraint "users_username_key"')
-      res.status(400).json({ message: "Username already exists." });
+    if (
+      error.message ===
+      'duplicate key value violates unique constraint "users_username_key"'
+    )
+      res.status(400).json({ message: 'Username already exists.' });
 
     res.status(500).json({ message: 'An error occurred while registering.' });
   }
@@ -81,20 +84,24 @@ exports.getAllUsers = async (req, res) => {
     res.status(200).json(users);
   } catch (error) {
     console.error('getAllUsers catch block: ', error);
-    res.status(500).json({ message: 'An error occurred while fetching users.' });
+    res
+      .status(500)
+      .json({ message: 'An error occurred while fetching users.' });
   }
-}
+};
 
 exports.deleteUser = async (req, res) => {
   const { user_id } = req.params;
   try {
     const deletedUser = await removeUser(user_id);
-    res.status(200).json({"message": "User deleted successfully."});
+    res.status(200).json({ message: 'User deleted successfully.' });
   } catch (error) {
     console.error('deleteUser catch block: ', error);
-    res.status(500).json({ message: 'An error occurred while deleting the user.' });
+    res
+      .status(500)
+      .json({ message: 'An error occurred while deleting the user.' });
   }
-}
+};
 
 exports.getUserbyId = async (req, res) => {
   const { user_id } = req.params;
@@ -103,17 +110,35 @@ exports.getUserbyId = async (req, res) => {
     res.status(200).json(user);
   } catch (error) {
     console.error('getUserById catch block: ', error);
-    res.status(500).json({ message: 'An error occurred while fetching the user.' });
+    res
+      .status(500)
+      .json({ message: 'An error occurred while fetching the user.' });
   }
-}
+};
 
 exports.getUserBalance = async (req, res) => {
   const { user_id } = req.params;
   try {
     const balance = await returnUserBalance(user_id);
-    res.status(200).json(balance);
+    res.status(200).json({"funds": balance});
   } catch (error) {
     console.error('getUserBalance catch block: ', error);
-    res.status(500).json({ message: 'An error occurred while fetching the user balance.' });
+    res
+      .status(500)
+      .json({ message: 'An error occurred while fetching the user balance.' });
   }
-}
+};
+
+exports.updateUserBalance = async (req, res) => {
+  const { user_id } = req.params;
+  const { balance } = req.body;
+  try {
+    const updatedBalance = await patchUserBalance(user_id, balance);
+    res.status(200).json(updatedBalance);
+  } catch (error) {
+    console.error('updateUserBalance catch block: ', error);
+    res
+      .status(500)
+      .json({ message: 'An error occurred while updating the user balance.' });
+  }
+};

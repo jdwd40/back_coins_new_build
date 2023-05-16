@@ -163,7 +163,7 @@ const seed = (data) => {
     .then(() => {
       const formattedUserCoins = formatCoinData(userCoins);
       const sql = format(
-        'INSERT INTO user_coins (user_coin_id, user_id, coin_id, amount) VALUES %L RETURNING *;',
+        'INSERT INTO user_coins (user_id, coin_id, amount) VALUES %L RETURNING *;',
         formattedUserCoins
       );
       return db.query(sql);

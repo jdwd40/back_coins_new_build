@@ -2,10 +2,9 @@ const db = require('../db/connection');
 
 exports.selectUserByEmail = async (email) => {
   try {
-    const { rows } = await db.query(
-      `SELECT * FROM users WHERE email = $1;`,
-      [email]
-    );
+    const { rows } = await db.query(`SELECT * FROM users WHERE email = $1;`, [
+      email,
+    ]);
     if (!rows.length) {
       throw new Error('Invalid email or password.');
     }
@@ -19,10 +18,9 @@ exports.selectUserByEmail = async (email) => {
 
 exports.checkIfEmailExists = async (email) => {
   try {
-    const { rows } = await db.query(
-      `SELECT * FROM users WHERE email = $1;`,
-      [email]
-    );
+    const { rows } = await db.query(`SELECT * FROM users WHERE email = $1;`, [
+      email,
+    ]);
     if (!rows.length) {
       return null; // No user with this email exists
     }
@@ -44,7 +42,7 @@ exports.createUser = async (email, hashedPassword, name) => {
     console.error(error);
     throw error;
   }
-}
+};
 
 exports.selectAllUsers = async () => {
   try {
@@ -54,7 +52,7 @@ exports.selectAllUsers = async () => {
     console.error(error);
     throw error;
   }
-}
+};
 
 exports.removeUser = async (user_id) => {
   try {
@@ -67,9 +65,9 @@ exports.removeUser = async (user_id) => {
     console.error(error);
     throw error;
   }
-}
+};
 
-exports.updateUserBalance = async (user_id, amount) => {
+exports.patchUserBalance = async (user_id, amount) => {
   try {
     const { rows } = await db.query(
       `UPDATE users SET funds = funds + $1 WHERE user_id = $2 RETURNING *;`,
@@ -89,6 +87,58 @@ exports.returnUserBalance = async (user_id) => {
       [user_id]
     );
     return rows[0].funds;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+exports.selectUserById = async (user_id) => {
+  try {
+    const { rows } = await db.query(`SELECT * FROM users WHERE user_id = $1;`, [
+      user_id,
+    ]);
+    return rows[0];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+exports.patchUserCoin = async (userId, coinId, amount) => {
+  try {
+    // Check if the user already has this type of coin
+    const { rows } = await db.query(
+      `SELECT * FROM user_coins WHERE user_id = $1 AND coin_id = $2`,
+      [userId, coinId]
+    );
+    
+    if (rows.length > 0) {
+      // User already has this type of coin, so we update the amount
+      await db.query(
+        `UPDATE user_coins SET amount = amount + $1 WHERE user_id = $2 AND coin_id = $3`,
+        [amount, userId, coinId]
+      );
+    } else {
+      // User doesn't have this type of coin, so we insert a new record
+      await db.query(
+        `INSERT INTO user_coins (user_id, coin_id, amount) VALUES ($1, $2, $3)`,
+        [userId, coinId, amount]
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+exports.selectUserCoins = async (userId) => {
+  try {
+    const { rows } = await db.query(
+      `SELECT * FROM user_coins WHERE user_id = $1`,
+      [userId]
+    );
+    return rows;
   } catch (error) {
     console.error(error);
     throw error;
