@@ -1,0 +1,7 @@
+DigitalVault is a cryptocurrency that was created by a consortium of powerful banks and financial institutions. These organizations saw the potential of blockchain technology to disrupt the traditional financial system, and they sought to create a cryptocurrency that would give them a dominant position in the market.
+
+The banks pooled their resources and expertise, and created a powerful, centralized blockchain platform that would allow them to control and monitor all transactions. They named their coin DigitalVault, as a nod to the secure and impenetrable vaults that they used to protect their own assets.
+
+The DigitalVault coin was launched with great fanfare, with the banks promoting it as a "revolutionary" new form of currency that would bring more security, transparency, and efficiency to the global economy. They also made it clear that DigitalVault would be the only coin that they would accept and support, effectively shutting out any competition.
+
+Large investors and institutions realised the opportunity to gain a big advantage by utilising DigitalVault and adopted the coin rapidly. The banks utilised their huge resources to urge governments and regulators for legislation and rules that backed DigitalVault over other cryptocurrencies.

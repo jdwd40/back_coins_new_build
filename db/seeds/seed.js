@@ -10,6 +10,8 @@ const {
   formatCoinData,
 } = require('../../utils/formatData');
 
+const {readAndInsertMarkdownFiles} = require('../../controllers/coinControllers');
+
 const seed = (data) => {
   const {
     users,
@@ -57,7 +59,8 @@ const seed = (data) => {
           coin_id SERIAL PRIMARY KEY,
           name VARCHAR(255) UNIQUE NOT NULL,
           symbol VARCHAR(10) UNIQUE NOT NULL,
-          current_price NUMERIC(20, 8) NOT NULL
+          current_price NUMERIC(20, 8) NOT NULL,
+          bio TEXT
         );`);
     })
     .then(() => {
@@ -167,6 +170,9 @@ const seed = (data) => {
         formattedUserCoins
       );
       return db.query(sql);
+    })
+    .then(() => {
+      return readAndInsertMarkdownFiles();
     });
 };
 

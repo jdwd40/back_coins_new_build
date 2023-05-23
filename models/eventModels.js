@@ -36,28 +36,4 @@ exports.selectEventById = async (event_id) => {
   }
 };
 
-exports.updateUserBalance = async (user_id, amount) => {
-  try {
-    const { rows } = await db.query(
-      `UPDATE users SET balance = balance + $1 WHERE user_id = $2 RETURNING *;`,
-      [amount, user_id]
-    );
-    return rows[0];
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
 
-exports.getUserBalance = async (user_id) => {
-  try {
-    const { rows } = await db.query(
-      `SELECT balance FROM users WHERE user_id = $1;`,
-      [user_id]
-    );
-    return rows[0].balance;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};

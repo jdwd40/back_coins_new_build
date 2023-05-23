@@ -1,0 +1,5 @@
+Byteon is a cryptocurrency startup founded by a group of sci-fi enthusiasts and gamers. The brains behind this innovative currency are Isaac Neuromancer and Philip Ender. Both Isaac and Philip are published sci-fi authors, who have brought their passion for technology and the future to Byteon.
+
+Inspired by the works of their favorite writers, they have combined their love for gaming and technology to create a fast, secure and user-friendly cryptocurrency that is perfect for gamers, tech enthusiasts and the future-forward community.
+
+Isaac and Philip believe that the future of currency is digital and with Byteon, they are leading the charge to bring about this future. They have assembled a team of experts from the tech and gaming communities to ensure that Byteon is at the forefront of innovation.

@@ -10,16 +10,16 @@ Sprint 1: Project Setup and Backend
 2. [x] Design the database schema
    - [x] Define the schema for Users, Coins, Transactions, and CoinPriceHistory
 
-3. [x] Implement user authentication
-   - [x] Write tests for user registration and login
-   - [x] Implement the registration and login API endpoints
-   - [x] Add token-based authentication
+3. [ ] Implement user authentication
+   - [ ] Write tests for user registration and login
+   - [ ] Implement the registration and login API endpoints
+   - [ ] Add token-based authentication
 
-4. [x] Implement simulated coins and price generation
-   - [x] Write tests for fake coin generation and price simulation
-   - [x] Implement coin generation and initial price simulation logic
-   - [x] Implement scheduled price updates every 5 minutes
-   - [x] Implement the API endpoint to fetch the list of coins with their prices
+4. [ ] Implement simulated coins and price generation
+   - [ ] Write tests for fake coin generation and price simulation
+   - [ ] Implement coin generation and initial price simulation logic
+   - [ ] Implement scheduled price updates every 5 minutes
+   - [ ] Implement the API endpoint to fetch the list of coins with their prices
 
 5. [ ] Implement portfolio management
    - [ ] Write tests for buying and selling coins
@@ -30,9 +30,9 @@ Sprint 1: Project Setup and Backend
    - [ ] Write tests for transaction recording and retrieval
    - [ ] Implement the API endpoint to fetch a user's transaction history
 
-7. [x] Implement coin price history
-   - [x] Write tests for coin price history recording and retrieval
-   - [x] Implement the API endpoint to fetch the historical price chart for each coin
+7. [ ] Implement coin price history
+   - [ ] Write tests for coin price history recording and retrieval
+   - [ ] Implement the API endpoint to fetch the historical price chart for each coin
 
 Sprint 2: Frontend
 

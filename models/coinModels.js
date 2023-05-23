@@ -66,3 +66,19 @@ exports.updateCoinById = async (coin_id, price) => {
     throw error;
   }
 };
+
+exports.patchCoinBio = async (comp_id, newBio) => {
+  console.log('from patchCompBio: ',newBio, comp_id)
+  try {
+    const updatedCompany = await db.query(
+      `UPDATE coins 
+              SET bio = $1 
+              WHERE coin_id = $2`,
+      [newBio, comp_id]
+    );
+    return updatedCompany;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
