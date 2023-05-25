@@ -22,8 +22,8 @@ exports.check_game_event = async () => {
   const eventType = eventTypes[randomIndex];
 
   // Step 5: Determine the duration of the new event
-  const duration = Math.floor(Math.random() * (5 - 1 + 1)) + 5; // Random number between 5 and 20 (1 , 5)
-
+  const duration = Math.floor(Math.random() * (4 - 1 + 1)) + 2;  // the code assigns a random duration between 2 and 5 (inclusive) to the duration variable.
+  
   // Step 6: Determine the start and end times of the new event
   const startTime = new Date();
   const endTime = new Date(startTime.getTime() + duration * 60000); // Add duration minutes to start time

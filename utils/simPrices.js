@@ -27,14 +27,14 @@ exports.adjustCoinPrices = async () => {
   let maxAdjustment;
 
   if (event.type === 'boom') {
-    minAdjustment = 1.1; // 10% increase
-    maxAdjustment = 1.5; // 50% increase
+    minAdjustment = 1.0001; // .01% increase
+    maxAdjustment = 1.0007; // .07% increase
   } else if (event.type === 'bust') {
-    minAdjustment = 0.5; // 50% decrease
-    maxAdjustment = 0.9; // 10% decrease
+    minAdjustment = 1 - 0.0001; // .01% decrease
+    maxAdjustment = 1 - 0.0007; // .07% decrease
   } else if (event.type === 'stagnate') {
-    minAdjustment = 0.95; // 5% decrease
-    maxAdjustment = 1.05; // 5% increase
+    minAdjustment = 0.99999; // .001% decrease
+    maxAdjustment = 1.00001; // .001% increase
   }
 
   // Adjust the price of each coin
