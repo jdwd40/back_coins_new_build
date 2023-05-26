@@ -21,49 +21,49 @@ module.exports = [
   },
   {
     name: "CryptoZen",
-    current_price: 17.01,
+    current_price: 1.01,
     symbol: "CZN",
     amount : 1000
 
   },
   {
     name: "Cybercore",
-    current_price: 4.23,
+    current_price: 0.23,
     symbol: "CYC",
     amount : 1000
 
   },
   {
     name: "DigalVault",
-    current_price: 6.32,
+    current_price: 0.0032,
     symbol: "DGV",
     amount : 1000
    
   },
   {
     name: "FutureCoin",
-    current_price: 21.45,
+    current_price: 0.0458,
     symbol: "FUT",
     amount : 1000
 
   },
   {
     name: "MetorCoin",
-    current_price: 13.76,
+    current_price: 3.761,
     symbol: "MET",
     amount : 1000
  
   },
   {
     name: "NovaCash",
-    current_price: 9.23,
+    current_price: 2.13,
     symbol: "NVC",
     amount : 1000
 
   },
   {
     name: "StellaFortune",
-    current_price: 17.32,
+    current_price: 4.32,
     symbol: "STF",
     amount : 1000
   },
