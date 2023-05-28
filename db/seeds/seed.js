@@ -88,7 +88,7 @@ const seed = (data) => {
       return db.query(`
         CREATE TABLE events (
           event_id SERIAL PRIMARY KEY,
-          type VARCHAR(10) NOT NULL CHECK (type IN ('boom', 'bust', 'stagnate')),
+          type VARCHAR(10) NOT NULL CHECK (type IN ('boom', 'bust', 'stagnate', 'bear', 'bull')),
           start_time TIMESTAMP NOT NULL,
           end_time TIMESTAMP NOT NULL
         );`);
