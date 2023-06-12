@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { loginUser, registerUser, getAllUsers, deleteUser, getUserBalance, getUserbyId, getUserByEmail } = require('../controllers/userControllers');
+const { loginUser, registerUser, getAllUsers, deleteUser, getUserBalance, getUserbyId, getUserByEmail, updateUserBalance } = require('../controllers/userControllers');
 const { withErrorHandling } = require('../errors');
 
 // login route
@@ -17,5 +17,7 @@ router.delete('/delete/:user_id', withErrorHandling(deleteUser));
 router.get('/getuser/:user_id', withErrorHandling(getUserbyId));
 
 router.get('/getemail/:email', withErrorHandling(getUserByEmail));
+
+router.patch('/balance/:user_id', withErrorHandling(updateUserBalance));
 
 module.exports = router;

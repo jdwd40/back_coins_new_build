@@ -144,3 +144,18 @@ exports.selectUserCoins = async (userId) => {
     throw error;
   }
 };
+
+exports.patchUserBalance = async (userId, amount) => {
+  //change amount to a number
+  console.log('amount', amount);
+  amount = Number(amount);
+  try {
+    await db.query(
+      `UPDATE users SET funds = funds + $1 WHERE user_id = $2`,
+      [amount, userId]
+    );
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

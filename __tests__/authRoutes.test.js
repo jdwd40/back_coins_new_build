@@ -111,10 +111,26 @@ describe('Auth Endpoints', () => {
     expect(res.body).toEqual('10000.00');
   });
   // test updateUserBalance function
+});
+
+// write a test that checks the user/balance endpoint returns the correct balance for a user
+describe('User Balance Endpoint', () => {
+  beforeEach(async () => {
+    await seed(testData);
+  });
+
+  afterAll(async () => {
+    db.end();
+  });
+
   it('should update the balance of a user', async () => {
-    updateUserBalance(1, -10);
+    const res = await request(app)
+      .patch('/api/user/balance/1')
+      .send({ amount: -20.0 });
+    expect(res.statusCode).toEqual(200);
+    // check user balance has been updated
     const res2 = await request(app).get('/api/user/balance/1');
     expect(res2.statusCode).toEqual(200);
-    expect(res2.body).toEqual('9990.00');
+    expect(res2.body.funds).toEqual('10010.00');
   });
 });

@@ -8,7 +8,8 @@ const {
   selectAllUsers,
   removeUser,
   returnUserBalance,
-  selectUserById
+  selectUserById, 
+  patchUserBalance
 } = require('../models/userModels');
 const secret = process.env.JWT_SECRET || 'default_secret';
 
@@ -154,5 +155,21 @@ exports.getUserByEmail = async (req, res) => {
     res
       .status(500)
       .json({ message: 'An error occurred while fetching the user.' });
+  }
+}
+
+exports.updateUserBalance = async (req, res) => {
+  const { user_id } = req.params;
+  const { amount } = req.body;
+  console.log('amount_from_updateUB: ', amount);
+  try {
+    await patchUserBalance(user_id, amount);
+    res.status(200).json({"msg": "Balance updated successfully."});
+
+  } catch (error) {
+    console.error('updateUserBalance catch block: ', error);
+    res
+      .status(500)
+      .json({ message: 'An error occurred while updating the user balance.' });
   }
 }
