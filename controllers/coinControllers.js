@@ -86,6 +86,8 @@ exports.updateCoin = async (req, res) => {
 exports.readAndInsertMarkdownFiles = async () => {
   try {
     // Read all markdown files in the current directory
+    // log out current directory
+    console.log('current directory', __dirname);
     const markdownFiles = fs.readdirSync('./db/data/coininfo').filter((file) => file.endsWith('.md'));
     let comp_id = 1; 
     for (const file of markdownFiles) {

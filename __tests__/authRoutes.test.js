@@ -108,22 +108,10 @@ describe('Auth Endpoints', () => {
   it('should return the balance of a user', async () => {
     const res = await request(app).get('/api/user/balance/1');
     expect(res.statusCode).toEqual(200);
-    expect(res.body).toEqual('10000.00');
+    expect(res.body).toEqual({"funds":'10000.00'}); 
   });
   // test updateUserBalance function
-});
-
-// write a test that checks the user/balance endpoint returns the correct balance for a user
-describe('User Balance Endpoint', () => {
-  beforeEach(async () => {
-    await seed(testData);
-  });
-
-  afterAll(async () => {
-    db.end();
-  });
-
-  it('should update the balance of a user', async () => {
+  it('should update the balance of a user when input is a number', async () => {
     const res = await request(app)
       .patch('/api/user/balance/1')
       .send({ amount: -20.0 });
@@ -131,6 +119,27 @@ describe('User Balance Endpoint', () => {
     // check user balance has been updated
     const res2 = await request(app).get('/api/user/balance/1');
     expect(res2.statusCode).toEqual(200);
-    expect(res2.body.funds).toEqual('10010.00');
+    expect(res2.body.funds).toEqual('9980.00');
+  });
+  // should check the input is a number
+  it('should not update the balance of a user if input is not a number that can be converted', async () => {
+    const res = await request(app)
+      .patch('/api/user/balance/1')
+      .send({ amount: 'twenty' });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty('message', 'Invalid input.');
+  });
+  // should update user blance if input is a string that can be converted
+  it('should update the balance of a user if input is a string that can be converted', async () => {
+    const res = await request(app)
+      .patch('/api/user/balance/1')
+      .send({ amount: '20.0' });
+    expect(res.statusCode).toEqual(200);
+    // check user balance has been updated
+    const res2 = await request(app).get('/api/user/balance/1');
+    expect(res2.statusCode).toEqual(200);
+    expect(res2.body.funds).toEqual('10020.00');
   });
 });
+
+

@@ -131,20 +131,6 @@ exports.getUserBalance = async (req, res) => {
   }
 };
 
-exports.updateUserBalance = async (req, res) => {
-  const { user_id } = req.params;
-  const { balance } = req.body;
-  try {
-    const updatedBalance = await patchUserBalance(user_id, balance);
-    res.status(200).json(updatedBalance);
-  } catch (error) {
-    console.error('updateUserBalance catch block: ', error);
-    res
-      .status(500)
-      .json({ message: 'An error occurred while updating the user balance.' });
-  }
-};
-
 exports.getUserByEmail = async (req, res) => {
   const { email } = req.params;
   try {
@@ -162,6 +148,13 @@ exports.updateUserBalance = async (req, res) => {
   const { user_id } = req.params;
   const { amount } = req.body;
   console.log('amount_from_updateUB: ', amount);
+  // check to see if amount is a number
+// check to see if amount is a number or can be converted to one
+if (isNaN(Number(amount)) || amount === undefined || amount === null || amount === '') {
+  return res.status(400).json({ message: 'Invalid input.' });
+}
+
+
   try {
     await patchUserBalance(user_id, amount);
     res.status(200).json({"msg": "Balance updated successfully."});

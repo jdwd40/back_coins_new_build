@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: jd
+      POSTGRES_PASSWORD: K1ller1921
+      POSTGRES_DB: coins
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+  app:
+    build: .
+    ports:
+      - "9090:9090"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://jd:K1ller1921@db:5432/coins
+
+volumes:
+  postgres_data:
