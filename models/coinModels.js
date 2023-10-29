@@ -68,7 +68,7 @@ exports.updateCoinById = async (coin_id, price) => {
 };
 
 exports.patchCoinBio = async (comp_id, newBio) => {
-  console.log('from patchCompBio: ',newBio, comp_id)
+ // console.log('from patchCompBio: ',newBio, comp_id)
   try {
     const updatedCompany = await db.query(
       `UPDATE coins 

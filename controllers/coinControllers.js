@@ -86,10 +86,12 @@ exports.updateCoin = async (req, res) => {
 exports.readAndInsertMarkdownFiles = async () => {
   try {
     // Read all markdown files in the current directory
-    const markdownFiles = fs.readdirSync('../data/coininfo').filter((file) => file.endsWith('.md'));
+    // log out current directory
+    console.log('current directory', __dirname);
+    const markdownFiles = fs.readdirSync('./db/data/coininfo').filter((file) => file.endsWith('.md'));
     let comp_id = 1; 
     for (const file of markdownFiles) {
-      const markdownData = fs.readFileSync(`../data/coininfo/${file}`, 'utf-8');
+      const markdownData = fs.readFileSync(`./db/data/coininfo/${file}`, 'utf-8');
 
       // Insert the markdown data into the comps table as the bio field
      await patchCoinBio(comp_id, markdownData);

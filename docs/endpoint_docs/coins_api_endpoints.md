@@ -121,4 +121,3 @@ Content-Type: application/json
     "current_price": 55000.00
 }
 ```
-
