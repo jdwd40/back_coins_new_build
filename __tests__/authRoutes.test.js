@@ -28,6 +28,7 @@ describe('Auth Endpoints', () => {
     console.log('res.body', res.body);
   });
 
+
   it('should not log in a user with invalid credentials', async () => {
     const res = await request(app).post('/api/user/login').send({
       email: 'john_doe@example.com',

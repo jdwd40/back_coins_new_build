@@ -67,18 +67,6 @@ exports.removeUser = async (user_id) => {
   }
 };
 
-exports.patchUserBalance = async (user_id, amount) => {
-  try {
-    const { rows } = await db.query(
-      `UPDATE users SET funds = funds + $1 WHERE user_id = $2 RETURNING *;`,
-      [amount, user_id]
-    );
-    return rows[0];
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
 
 exports.returnUserBalance = async (user_id) => {
   try {
@@ -151,7 +139,7 @@ exports.patchUserBalance = async (userId, amount) => {
   amount = Number(amount);
   try {
     await db.query(
-      `UPDATE users SET funds = funds + $1 WHERE user_id = $2`,
+      `UPDATE users SET funds = $1 WHERE user_id = $2`,
       [amount, userId]
     );
   } catch (error) {
@@ -159,3 +147,4 @@ exports.patchUserBalance = async (userId, amount) => {
     throw error;
   }
 }
+
