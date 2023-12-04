@@ -17,7 +17,7 @@ exports.check_game_event = async () => {
   // Step 3: Handle the case where no event is active
 
   // Step 4: Determine the type of the new event
-  const eventTypes = ['boom', 'bust', 'bull',"bear", "stagnate", "stagnate", "stagnate"];
+  const eventTypes = ['boom', 'bust', 'bull',"bear", "stagnate", "stagnate", "stagnate", 'bull'];
   const randomIndex = Math.floor(Math.random() * eventTypes.length);
   const eventType = eventTypes[randomIndex];
 

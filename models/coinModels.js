@@ -82,3 +82,13 @@ exports.patchCoinBio = async (comp_id, newBio) => {
     return err;
   }
 }
+
+exports.returnCoinPriceAverage = async () => {
+  try {
+    const { rows } = await db.query(`SELECT AVG(current_price) FROM coins;`);
+    return rows[0].avg;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

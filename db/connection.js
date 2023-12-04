@@ -6,7 +6,6 @@ const pool = new Pool({
   connectionString: "//jd:K1ller1921@db:5432/coins",
 });
 
-
 require('dotenv').config({
   path: `${__dirname}/../.env.${ENV}`,
 });

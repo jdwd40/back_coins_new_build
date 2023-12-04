@@ -1,4 +1,4 @@
-const { selectCoins } = require('../models/coinModels');
+const { selectCoins, returnCoinPriceAverage } = require('../models/coinModels');
 const { selectCurrentEvent } = require('../models/eventModels');
 const db = require('../db/connection');
 const { check_game_event } = require('./check_game_event');
@@ -20,11 +20,22 @@ exports.adjustCoinPrices = async () => {
   await check_game_event();
   const event = await selectCurrentEvent();
   const coins = await selectCoins();
-  // console.log(event);
 
   // Determine price adjustment based on event type
   let minAdjustment;
   let maxAdjustment;
+
+  // const averagePrice = coins.reduce((acc, coin) => acc + parseFloat(coin.current_price), 0) / coins.length;
+  averagePrice = await returnCoinPriceAverage();
+  console.log('av price',averagePrice);
+  UPPER_THRESHOLD = 10.05;
+  LOWER_THRESHOLD = 0.95;
+
+  if (averagePrice > UPPER_THRESHOLD) {
+    event.type = 'bear'; // Switch to bear market
+  } else if (averagePrice < LOWER_THRESHOLD) {
+    event.type = 'bull'; // Switch to bull market
+  }
 
   if (event.type === 'boom') {
     minAdjustment = 1.01; // 1% increase
@@ -39,12 +50,23 @@ exports.adjustCoinPrices = async () => {
     minAdjustment = 0.95; // 5% decrease
     maxAdjustment = 0.99; // 1% decrease
   } else if (event.type === 'stagnate') {
-    minAdjustment = 0.95; // 5% decrease
-    maxAdjustment = 1.05; // 5% increase
+    minAdjustment = 0.98; // 2% decrease
+    maxAdjustment = 1.02; // 2% increase
   }
 
   // Adjust the price of each coin
   for (let coin of coins) {
+
+    if (coin.current_price < 0.000009) {
+      const adjustment = Math.random() * (1.2 - 1.1) + 1.1;
+      const newPrice = coin.current_price * adjustment;
+      await db.query('UPDATE coins SET current_price = $1 WHERE coin_id = $2', [
+        newPrice,
+        coin.coin_id,
+      ]);
+      
+      
+    }
     // Generate a random adjustment within the specified range
     const adjustment =
       Math.random() * (maxAdjustment - minAdjustment) + minAdjustment;
