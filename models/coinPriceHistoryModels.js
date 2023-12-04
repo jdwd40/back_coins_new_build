@@ -1,10 +1,15 @@
 const db = require('../db/connection');
 
-exports.selectCoinPriceHistory = async () => {
+exports.selectCoinPriceHistory = async (timeAmount=30) => {
   try {
-    const { rows } = await db.query(
-      `SELECT * FROM coin_price_history ORDER BY timestamp DESC`
-    );
+    // Assuming 'timeAmount' is in minutes. Adjust accordingly if it's in hours, days, etc.
+    const query = `
+      SELECT * FROM coin_price_history
+      WHERE timestamp >= NOW() - INTERVAL '${timeAmount} minutes'
+      ORDER BY timestamp DESC
+    `;
+
+    const { rows } = await db.query(query);
     return rows;
   } catch (error) {
     console.error(error);
