@@ -1,7 +1,7 @@
 module.exports = [
   {
     name: "BlockNation",
-    current_price: 12.23,
+    current_price: 48.23,
     symbol: "BKN",
     amount : 1000
   },
@@ -21,28 +21,28 @@ module.exports = [
   },
   {
     name: "CryptoZen",
-    current_price: 1.01,
+    current_price: 10.01,
     symbol: "CZN",
     amount : 1000
 
   },
   {
     name: "Cybercore",
-    current_price: 0.23,
+    current_price: 2.23,
     symbol: "CYC",
     amount : 1000
 
   },
   {
     name: "DigalVault",
-    current_price: 0.0032,
+    current_price: 1.0032,
     symbol: "DGV",
     amount : 1000
    
   },
   {
     name: "FutureCoin",
-    current_price: 0.0458,
+    current_price: 7.4458,
     symbol: "FUT",
     amount : 1000
 
