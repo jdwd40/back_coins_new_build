@@ -1,10 +1,14 @@
 const db = require('../db/connection');
 
-exports.selectCoinPriceHistory = async (timeAmount=30) => {
+exports.selectCoinPriceHistory = async (timeAmount = 30) => {
   try {
     // Assuming 'timeAmount' is in minutes. Adjust accordingly if it's in hours, days, etc.
     const query = `
-      SELECT * FROM coin_price_history
+      SELECT *,
+        (SELECT MIN(price) FROM coin_price_history) AS lowest_price,
+        (SELECT MAX(price) FROM coin_price_history) AS highest_price,
+        (SELECT AVG(price) FROM coin_price_history) AS average_price
+      FROM coin_price_history
       WHERE timestamp >= NOW() - INTERVAL '${timeAmount} minutes'
       ORDER BY timestamp DESC
     `;
