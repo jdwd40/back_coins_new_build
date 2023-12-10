@@ -138,15 +138,15 @@ const seed = (data) => {
       );
       return db.query(sql);
     })
-    .then(() => {
-      const formattedCoinPriceHistory =
-        formatCoinPriceHistoryData(coinPriceHistory);
-      const sql = format(
-        'INSERT INTO coin_price_history (coin_id, price, timestamp) VALUES %L RETURNING *;',
-        formattedCoinPriceHistory
-      );
-      return db.query(sql);
-    })
+    // .then(() => {
+    //   const formattedCoinPriceHistory =
+    //     formatCoinPriceHistoryData(coinPriceHistory);
+    //   const sql = format(
+    //     'INSERT INTO coin_price_history (coin_id, price, timestamp) VALUES %L RETURNING *;',
+    //     formattedCoinPriceHistory
+    //   );
+    //   return db.query(sql);
+    // })
     .then(() => {
       const formattedEvents = formatEventsData(events);
       const sql = format(
