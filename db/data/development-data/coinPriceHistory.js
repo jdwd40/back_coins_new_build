@@ -1,7 +1,7 @@
 module.exports = [
     {
       history_id: 1,
-      coin_id: 111,
+      coin_id: 1,
       price: 150.00,
       timestamp: '2023-05-07T08:00:00.000Z'
     },
