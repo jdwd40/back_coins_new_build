@@ -19,29 +19,11 @@ exports.selectCoinPriceHistory = async (timeAmount=30) => {
 
 exports.selectCoinPriceHistoryById = async (coinId) => {
   try {
-    const query = `
-      SELECT cp.*, 
-        agg.highest_price, 
-        agg.lowest_price, 
-        agg.average_price
-      FROM coin_price_history cp
-      JOIN (
-        SELECT 
-          coin_id,
-          MAX(price) AS highest_price,
-          MIN(price) AS lowest_price,
-          AVG(price) AS average_price
-        FROM 
-          coin_price_history
-        WHERE 
-          coin_id = $1
-        GROUP BY 
-          coin_id
-      ) agg ON cp.coin_id = agg.coin_id
-      WHERE cp.coin_id = $1
-      ORDER BY cp.timestamp ASC
-    `;
-    const { rows } = await db.query(query, [coinId]);
+    const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000); // Calculate the timestamp for 6 hours ago
+    const { rows } = await db.query(
+      `SELECT * FROM coin_price_history WHERE coin_id = $1 AND timestamp >= $2 ORDER BY timestamp ASC`,
+      [coinId, sixHoursAgo]
+    );
     return rows;
   } catch (error) {
     console.error(error);

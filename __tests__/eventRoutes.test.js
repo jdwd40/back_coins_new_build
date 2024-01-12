@@ -32,4 +32,6 @@ describe('Auth Endpoints', () => {
     currentEvent.end_time = new Date(currentEvent.end_time).toLocaleString();
     console.log('currentEvent', currentEvent);
   });
+
+  
 });

@@ -154,7 +154,6 @@ if (isNaN(Number(amount)) || amount === undefined || amount === null || amount =
   return res.status(400).json({ message: 'Invalid input.' });
 }
 
-
   try {
     await patchUserBalance(user_id, amount);
     res.status(200).json({"msg": "Balance updated successfully."});
