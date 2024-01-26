@@ -28,8 +28,8 @@ exports.adjustCoinPrices = async () => {
   // const averagePrice = coins.reduce((acc, coin) => acc + parseFloat(coin.current_price), 0) / coins.length;
   averagePrice = await returnCoinPriceAverage();
   console.log('av price',averagePrice);
-  UPPER_THRESHOLD = 10.05;
-  LOWER_THRESHOLD = 0.95;
+  UPPER_THRESHOLD = 15.05;
+  LOWER_THRESHOLD = 3.95;
 
   if (averagePrice > UPPER_THRESHOLD) {
     event.type = 'bear'; // Switch to bear market
@@ -57,7 +57,7 @@ exports.adjustCoinPrices = async () => {
   // Adjust the price of each coin
   for (let coin of coins) {
 
-    if (coin.current_price < 0.000009) {
+    if (coin.current_price < 0.00009) {
       const adjustment = Math.random() * (1.2 - 1.1) + 1.1;
       const newPrice = coin.current_price * adjustment;
       await db.query('UPDATE coins SET current_price = $1 WHERE coin_id = $2', [

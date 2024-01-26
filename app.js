@@ -8,7 +8,14 @@ const { adjustCoinPrices } = require('./utils/simPrices');
 
 const app = express();
 
-app.use(cors()); // This is where you add the CORS middleware
+const corsOptions = {
+  origin: 'https://jwd1.online', // Your Netlify domain
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Add PATCH to the list of allowed methods
+  credentials: true,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions)); // This is where you add the CORS middleware
 app.use(express.static('public'));
 app.use(express.json());
 

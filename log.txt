@@ -52,3 +52,4 @@ back_coins_new_build/log.txt
 
 sent 181,440 bytes  received 1,075 bytes  365,030.00 bytes/sec
 total size is 37,642,316  speedup is 206.24
+test
