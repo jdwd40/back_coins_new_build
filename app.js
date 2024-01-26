@@ -10,7 +10,7 @@ const app = express();
 
 const corsOptions = {
   origin: 'https://jwd1.online', // Your Netlify domain
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Add PATCH to the list of allowed methods
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'], // Add PATCH to the list of allowed methods
   credentials: true,
   optionsSuccessStatus: 204
 };
