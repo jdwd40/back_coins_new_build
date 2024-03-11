@@ -17,12 +17,11 @@ exports.selectCoinPriceHistory = async (timeAmount=30) => {
   }
 };
 
-exports.selectCoinPriceHistoryById = async (coinId) => {
+exports.selectCoinPriceHistoryById = async (coinId, amount) => {
   try {
-    const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000); // Calculate the timestamp for 6 hours ago
     const { rows } = await db.query(
-      `SELECT * FROM coin_price_history WHERE coin_id = $1 AND timestamp >= $2 ORDER BY timestamp ASC`,
-      [coinId, sixHoursAgo]
+      `SELECT * FROM coin_price_history WHERE coin_id = $1 AND timestamp >= NOW() - INTERVAL '${amount} minutes' ORDER BY timestamp ASC`,
+      [coinId]
     );
     return rows;
   } catch (error) {

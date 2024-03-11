@@ -24,8 +24,11 @@ exports.getAllCoinPriceHistory = async (req, res, next) => {
 // Get coin price history by coin id
 exports.getCoinPriceHistoryById = async (req, res, next) => {
   const { coin_id } = req.params;
+  const { amount } = req.query;
+
+  const timeAmount = amount ? parseInt(amount) : 30;
   try {
-    const priceHistory = await selectCoinPriceHistoryById(coin_id);
+    const priceHistory = await selectCoinPriceHistoryById(coin_id, timeAmount);
     res.status(200).json({ priceHistory });
   } catch (error) {
     console.log(error);

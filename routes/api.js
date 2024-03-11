@@ -12,6 +12,10 @@ const { handleSQLErrors, handleCustomErrors, handle500 } = require('../errors');
 
 app.use(express.json());
 
+app.use('/', (req, res) => {
+    res.status(200).send('Welcome to the Coins API');
+});
+
 app.use('/user', usersRoutes);
 
 app.use('/coins', coinRoutes);
