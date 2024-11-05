@@ -9,7 +9,7 @@ const { adjustCoinPrices } = require('./utils/simPrices');
 const app = express();
 
 const corsOptions = {
-  origin: 'https://jwd1.online', // Your Netlify domain
+  origin: ['https://jwd1.online', 'http://localhost:5173'], // Your Netlify domain
   methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'], // Add PATCH to the list of allowed methods
   optionsSuccessStatus: 204
 };
